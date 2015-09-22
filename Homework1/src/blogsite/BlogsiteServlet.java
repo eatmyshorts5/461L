@@ -27,12 +27,15 @@ public class BlogsiteServlet {
           resp.setContentType("text/plain");
 
           resp.getWriter().println("Hello, " + user.getNickname());
-
+          
       } else {
 
+    	  
           resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
 
       }
+      
+      
 
   }
 	
