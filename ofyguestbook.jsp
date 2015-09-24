@@ -75,16 +75,16 @@ to post.</p>
 <%
 
 	ObjectifyService.register(BlogPost.class);
-	List<BlogPost> blogpost = ObjectifyService.ofy().load().type(BlogPost.class).list();
-	Collections.sort(blogpost);
-	Collections.reverse(blogpost);
+	List<BlogPost> blogposts = ObjectifyService.ofy().load().type(BlogPost.class).list();
+	Collections.sort(blogposts);
+	Collections.reverse(blogposts);
 
     // Run an ancestor query to ensure we see the most up-to-date
 
     // view of the BlogPosts belonging to the selected Guestbook.
 
 
-    if (blogpost.isEmpty()) {
+    if (blogposts.isEmpty()) {
 
         %>
 
@@ -100,8 +100,8 @@ to post.</p>
 
         <%
 
-        for (int i = 0; i < 5; i++) {
-			BlogPost blogpost = blogpost.get(i);
+        for (int i = 0; i < blogposts.size(); i++) {
+			BlogPost blogpost = blogposts.get(i);
             pageContext.setAttribute("blogpost_content", blogpost.getContent());
 			pageContext.setAttribute("blog_title",blogpost.getTitle());
 			pageContext.setAttribute("blog_date", blogpost.getDate());
@@ -115,7 +115,7 @@ to post.</p>
 
             } else {
 
-                pageContext.setAttribute("blogpost_user", greeting.getUser());
+                pageContext.setAttribute("blogpost_user", blogpost.getUser());
 
                 %>
 				<header style="font-size:30px">${fn:escapeXml(blog_title)}
@@ -141,7 +141,7 @@ to post.</p>
  
 <%
 	if(user!= null){%>
-    <form action="/ofysign" method="post">
+    <form action="/blog" method="post">
 	  <div><textarea name="title" rows="1" cols="50" placeholder ="Title"></textarea></div>
       <div><textarea name="content" rows="3" cols="60" placeholder ="Say stoofz here." required></textarea></div>
 
