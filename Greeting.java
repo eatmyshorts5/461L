@@ -1,4 +1,4 @@
-package guestbook;
+package blogsite;
 
 import java.util.Date;
 
@@ -8,22 +8,22 @@ import com.googlecode.objectify.annotation.Id;
 
 @Entity
 
-public class Greeting implements Comparable<Greeting>{
+public class BlogPost implements Comparable<BlogPost>{
 	@Id Long id;
 	User user;
 	String content;
 	Date date;
 	String title;
 	
-	private Greeting(){}
-	public Greeting(User user, String content)
+	private BlogPost(){}
+	public BlogPost(User user, String content)
 	{
 		this.user = user;
 		this.content = content;
 		date = new Date();
 	}
 	
-	public Greeting(User user, String title, String content)
+	public BlogPost(User user, String title, String content)
 	{
 		this(user,content);
 		this.title = title;
@@ -51,7 +51,7 @@ public class Greeting implements Comparable<Greeting>{
 	
 	@Override
 	
-	public int compareTo(Greeting other)
+	public int compareTo(BlogPost other)
 	{
 		if(date.after(other.date))
 		{

@@ -10,7 +10,7 @@
 
 <%@ page import = "java.util.Collections"%>
 <%@ page import = "com.googlecode.objectify.*"%>
-<%@ page import = "guestbook.Greeting" %>
+<%@ page import = "blogsite.BlogPost" %>
 
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -74,17 +74,17 @@ to post.</p>
 
 <%
 
-	ObjectifyService.register(Greeting.class);
-	List<Greeting> greetings = ObjectifyService.ofy().load().type(Greeting.class).list();
-	Collections.sort(greetings);
-	Collections.reverse(greetings);
+	ObjectifyService.register(BlogPost.class);
+	List<BlogPost> blogpost = ObjectifyService.ofy().load().type(BlogPost.class).list();
+	Collections.sort(blogpost);
+	Collections.reverse(blogpost);
 
     // Run an ancestor query to ensure we see the most up-to-date
 
-    // view of the Greetings belonging to the selected Guestbook.
+    // view of the BlogPosts belonging to the selected Guestbook.
 
 
-    if (greetings.isEmpty()) {
+    if (blogpost.isEmpty()) {
 
         %>
 
@@ -101,11 +101,11 @@ to post.</p>
         <%
 
         for (int i = 0; i < 5; i++) {
-			Greeting greeting = greetings.get(i);
-            pageContext.setAttribute("greeting_content", greeting.getContent());
-			pageContext.setAttribute("blog_title",greeting.getTitle());
-			pageContext.setAttribute("blog_date", greeting.getDate());
-            if (greeting.getUser() == null) {
+			BlogPost blogpost = blogpost.get(i);
+            pageContext.setAttribute("blogpost_content", blogpost.getContent());
+			pageContext.setAttribute("blog_title",blogpost.getTitle());
+			pageContext.setAttribute("blog_date", blogpost.getDate());
+            if (blogpost.getUser() == null) {
 
                 %>
 
@@ -115,11 +115,11 @@ to post.</p>
 
             } else {
 
-                pageContext.setAttribute("greeting_user", greeting.getUser());
+                pageContext.setAttribute("blogpost_user", greeting.getUser());
 
                 %>
 				<header style="font-size:30px">${fn:escapeXml(blog_title)}
-				<h6 style="font-size:10px">by ${fn:escapeXml(greeting_user.nickname)}</h6>
+				<h6 style="font-size:10px">by ${fn:escapeXml(blogpost_user.nickname)}</h6>
 				</header>
 				
                 <%
@@ -128,7 +128,7 @@ to post.</p>
 
             %>
 
-            <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
+            <blockquote>${fn:escapeXml(blogpost_content)}</blockquote>
 			<footer style="font-size:12px">posted ${fn:escapeXml(blog_date)}</footer>	
             <%
 
@@ -145,7 +145,7 @@ to post.</p>
 	  <div><textarea name="title" rows="1" cols="50" placeholder ="Title"></textarea></div>
       <div><textarea name="content" rows="3" cols="60" placeholder ="Say stoofz here." required></textarea></div>
 
-      <div><input type="submit" value="Post Greeting" /></div>
+      <div><input type="submit" value="Post BlogPost" /></div>
 
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 

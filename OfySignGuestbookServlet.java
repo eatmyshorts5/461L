@@ -1,5 +1,5 @@
-//http://first-skein-105821.appspot.com/ofyguestbook.jsp
-package guestbook;
+//http://first-skein-105821.appspot.com/ofyblogpost.jsp
+package blogsite;
 import java.util.logging.Logger;
  
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -28,8 +28,8 @@ import org.apache.jasper.tagplugins.jstl.core.Set;
 
  
 
-public class OfySignGuestbookServlet extends HttpServlet {
-	private static final Logger log = Logger.getLogger(OfySignGuestbookServlet.class.getName());
+public class OfySignBlogpostServlet extends HttpServlet {
+	private static final Logger log = Logger.getLogger(OfySignBlogpostServlet.class.getName());
 	static
 	{
 		ObjectifyService.register(Greeting.class);
@@ -42,21 +42,21 @@ public class OfySignGuestbookServlet extends HttpServlet {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         String title = req.getParameter("title");
-        String guestbookName = req.getParameter("guestbookName");
+        String blogpostName = req.getParameter("blogpostName");
         String content = req.getParameter("content");
         Greeting g = new Greeting(user, title, content);
         ofy().save().entity(g).now();
-        resp.sendRedirect("/ofyguestbook.jsp?guestbookName=" + guestbookName);
+        resp.sendRedirect("/ofyblogpost.jsp?blogpostName=" + blogpostName);
     }
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
     	//UserService userService = UserServiceFactory.getUserService();
         //User user = userService.getCurrentUser();
-        //String guestbookName = req.getParameter("guestbookName");
-        //String guestbookEntry = req.getParameter("guestbookEntry");
-        //if(guestbookId!=null)
-        //ofy().delete().type(Greeting.class).id(guestbookEntry).now();
+        //String blogpostName = req.getParameter("blogpostName");
+        //String blogpostEntry = req.getParameter("blogpostEntry");
+        //if(blogpostId!=null)
+        //ofy().delete().type(Greeting.class).id(blogpostEntry).now();
     }
 
 }
