@@ -11,6 +11,7 @@
 <%@ page import = "java.util.Collections"%>
 <%@ page import = "com.googlecode.objectify.*"%>
 <%@ page import = "blogsite.BlogPost" %>
+<%@ page import = "blogsite.Subscriber" %>
 
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -21,6 +22,42 @@
 
   <head>
 <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+<%
+	UserService userService = UserServiceFactory.getUserService();
+
+	User user = userService.getCurrentUser();
+	ObjectifyService.register(Subscriber.class);
+	List<Subscriber> subscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();
+	
+	//check if in ofy subscribers
+	if(user!= null)
+	{
+		boolean subscribed = false;
+		
+		for(Subscriber sub:subscribers)
+		{
+			if(sub.getEmail().equals(user.getEmail()))
+			{
+				subscribed = true;
+				break;
+			}
+		}
+		
+		if(subscribed)
+		{%>
+    	<form action="/blog" method="post">
+     	 <div><input type="submit" name="unsub" value="Unsubscribe" /></div>
+     	 
+		</form>
+		<%}
+		else
+		{%>
+			<form action="/blog" method="post">
+		      <div><input type="submit" name = "sub" value="Subscribe!" /></div>
+		      
+			</form>
+		<%}
+	}%>
   </head>
 
  
@@ -41,9 +78,7 @@
 
     pageContext.setAttribute("guestbookName", guestbookName);
 
-    UserService userService = UserServiceFactory.getUserService();
-
-    User user = userService.getCurrentUser();
+    
 
     if (user != null) {
 
@@ -53,7 +88,7 @@
 
 <p>Signed in as ${fn:escapeXml(user.nickname)}
 
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a>)</p>
+<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a></p>
 
 <%
 
@@ -62,7 +97,7 @@
 %>
 
 <p><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
-to post.</p>
+to post and/or subscribe.</p>
 
 <%
 
@@ -100,11 +135,12 @@ to post.</p>
 
         <%
 
-        for (int i = 0; i < blogposts.size(); i++) {
+        for (int i = 0; i < blogposts.size() && i < 5; i++) {
 			BlogPost blogpost = blogposts.get(i);
             pageContext.setAttribute("blogpost_content", blogpost.getContent());
 			pageContext.setAttribute("blog_title",blogpost.getTitle());
 			pageContext.setAttribute("blog_date", blogpost.getDate());
+			pageContext.setAttribute("blog_key", blogpost.getId());
             if (blogpost.getUser() == null) {
 
                 %>
@@ -130,6 +166,12 @@ to post.</p>
 
             <blockquote>${fn:escapeXml(blogpost_content)}</blockquote>
 			<footer style="font-size:12px">posted ${fn:escapeXml(blog_date)}</footer>	
+			
+			<form action="/ofysign" method="post">
+			<div><input type="submit" value="Delete" /></div>
+			<input type="hidden" name="blog_id" value="${blog_id}"/>
+			</form>
+			
             <%
 
         }
@@ -146,12 +188,12 @@ to post.</p>
       <div><textarea name="content" rows="3" cols="60" placeholder ="Say stoofz here." required></textarea></div>
 
       <div><input type="submit" value="Post BlogPost" /></div>
-
+	  <input type="hidden" name="post" value="postButton"/>
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
     </form>
 	<%} %>
-	<form action="/ofysign" method="get">
+	<form action="/blog" method="get">
 
 
       <div><input type="submit" value="View All" /></div>

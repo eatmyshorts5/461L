@@ -9,6 +9,26 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<welcome-file>ofyguestbook.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<security-constraint>
+    <web-resource-collection>
+    <web-resource-name>cron</web-resource-name>
+    <url-pattern>/cron/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+    <role-name>admin</role-name>
+    </auth-constraint>
+	</security-constraint>
+	
+	<servlet>
+	<servlet-name>EmailServlet</servlet-name>
+	<servlet-class>blogsite.EmailServlet</servlet-class>
+	</servlet>
+
+    <servlet-mapping>
+	<servlet-name>EmailServlet</servlet-name>
+	<url-pattern>/cron/email</url-pattern>
+	</servlet-mapping>
+	
      <servlet>
 
         <servlet-name>ofysign</servlet-name>
@@ -34,10 +54,27 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</filter>
 
 	<filter-mapping>
-
-        <filter-name>ObjectifyFilter</filter-name>
-
-        <url-pattern>/*</url-pattern>
-
-</filter-mapping>
+	<filter-name>ObjectifyFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+	  <servlet-name>bouncehandler</servlet-name>
+	  <servlet-class>BounceHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>bouncehandler</servlet-name>
+	  <url-pattern>/_ah/bounce</url-pattern>
+	</servlet-mapping>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>bounce</web-resource-name>
+			<url-pattern>/_ah/bounce</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
 </web-app>

@@ -49,6 +49,11 @@ public class BlogPost implements Comparable<BlogPost>{
 		return content;
 	}
 	
+	public Long getId()
+	{
+		return id;
+	}
+	
 	@Override
 	
 	public int compareTo(BlogPost other)
