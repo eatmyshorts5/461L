@@ -26,6 +26,9 @@
  
 
   <body>
+  <div class="background">
+<div class="transbox">
+<br><br>
 
  
 <%
@@ -51,23 +54,26 @@
       pageContext.setAttribute("user", user);
 %>
 
-	<p>Signed in as ${fn:escapeXml(user.nickname)}
+	<p align="right">Signed in as ${fn:escapeXml(user.nickname)}
 
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a>)</p>
-
+	<br>Click here to <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a></p>
 <%
  
     } else {
     	
     	%>
 
-    	<p><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
-    	to post.</p>
+    	<p align="right"><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+		to post.</p>
 
     	<%
     }
 
 %>
+</div>
+<img class ="resize" style="float:left" src="/kappa.png" /> 
+
+<div class="transbox1">
 
     <%
 
@@ -109,7 +115,8 @@
 
     <blockquote>${fn:escapeXml(blogpost_content)}</blockquote>	
     
-		
+	</div>
+	</div>
   </body>
 
 </html>

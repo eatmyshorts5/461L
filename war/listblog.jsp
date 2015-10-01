@@ -26,6 +26,10 @@
  
 
   <body>
+  
+<div class="background">
+<div class="transbox">
+<br><br>
 
  
 <%
@@ -49,12 +53,12 @@
       pageContext.setAttribute("user", user);
 
 %>
+	
 
-    %>
+	<p align="right">Signed in as ${fn:escapeXml(user.nickname)}
 
-	<p>Signed in as ${fn:escapeXml(user.nickname)}
+	<br>Click here to <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a></p>
 
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a>)</p>
 
 <%
  
@@ -62,14 +66,17 @@
     	
     	%>
 
-    	<p><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
-    	to post.</p>
+    	<p align="right"><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+		to post.</p>
 
     	<%
     }
 
 %>
+</div>
+<img class ="resize" style="float:left" src="/kappa.png" /> 
 
+<div class="transbox1">
     <%
 
 	ObjectifyService.register(BlogPost.class);
@@ -126,7 +133,8 @@
 		<%}%>
 	<%} %>
 		
-
+	</div>
+  </div>  
 
   </body>
 
