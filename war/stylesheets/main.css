@@ -1,0 +1,46 @@
+div.background {
+    background: url(tokyo.jpg) repeat;
+    border: 2px solid black;
+}
+
+div.transbox {
+    margin: 30px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    overflow: auto;
+    opacity: 0.6;
+	filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+div.transbox1 {
+    margin: 5%;
+    padding-left: 20px;
+    padding-right: 20px;
+    align: center;
+    word-wrap: break-word;
+    background-color: #F8F8FF;
+    font-family: "Times New Roman", Times, serif;
+    color: #000000;
+    border: 2px solid black;
+    overflow: hidden;
+    max-width: 150ch;
+}
+
+div.opac {
+	opacity: 0.6;
+	filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+div.break {
+	padding-top: 40px;
+	border-bottom: double #000000;
+	
+}
+
+img.resize{
+    width: 8%;
+    height: auto;
+    position: absolute;
+  	top: 35px;
+  	left: 35px;
+}
