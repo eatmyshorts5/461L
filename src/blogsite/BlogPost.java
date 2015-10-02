@@ -15,7 +15,6 @@ public class BlogPost implements Comparable<BlogPost>{
 	Date date;
 	String title;
 	
-	
 	private BlogPost(){}
 	public BlogPost(User user, String content)
 	{
@@ -48,6 +47,11 @@ public class BlogPost implements Comparable<BlogPost>{
 	public String getContent()
 	{
 		return content;
+	}
+	
+	public Long getId()
+	{
+		return id;
 	}
 	
 	@Override
