@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/cron/email</url>
+    <description>Email update of latest blog posts</description>
+    <schedule>every day 17:00</schedule>
+    <timezone>America/Chicago</timezone>
+  </cron>
+</cronentries>
