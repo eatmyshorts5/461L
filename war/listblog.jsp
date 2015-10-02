@@ -55,7 +55,7 @@
 %>
 	
 
-	<p align="right">Signed in as ${fn:escapeXml(user.nickname)}
+	<p class="nitpick" style="float:right">Signed in as ${fn:escapeXml(user.nickname)}
 
 	<br>Click here to <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a></p>
 
@@ -66,7 +66,7 @@
     	
     	%>
 
-    	<p align="right"><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+    	<p class="nitpick" style="float:right">Hello guest!<br><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 		to post.</p>
 
     	<%
@@ -75,6 +75,7 @@
 %>
 </div>
 <img class ="resize" style="float:left" src="/kappa.png" /> 
+<p class="headerr" style="float:left">The Blog</p>
 
 <div class="transbox1">
     <%
@@ -132,6 +133,11 @@
             %>
 		<%}%>
 	<%} %>
+	
+	<form action="/ofyguestbook.jsp" method="get">
+
+
+    <div><input type="submit" value="Home" /></div>
 		
 	</div>
   </div>  

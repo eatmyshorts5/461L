@@ -53,7 +53,7 @@
 
 %>
 
-<p align="right">Signed in as ${fn:escapeXml(user.nickname)}
+<p class="nitpick" style="float:right">Signed in as ${fn:escapeXml(user.nickname)}
 
 <br>Click here to <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out.</a></p>
 
@@ -63,7 +63,7 @@
 
 %>
 
-<p align="right"><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+<p class="nitpick" style="float:right">Hello guest!<br><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 to post.</p>
 
 <%
@@ -72,7 +72,8 @@ to post.</p>
 
 %>
 </div>
-<img class ="resize" style="float:left" src="/kappa.png" /> 
+<img class ="resize" style="float:left" src="/kappa.png" />
+<p class="headerr" style="float:left">The Blog</p>
 
 <div class="transbox1">
 <%
@@ -103,10 +104,13 @@ to post.</p>
         <p><br>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 
         <%
-
+        int count = 0;
         for (int i = 0; i < blogposts.size(); i++) {%>
         	<div class="break">
         	<%
+			if (count == 5)
+				break;
+        	count += 1;
 			BlogPost blogpost = blogposts.get(i);
             pageContext.setAttribute("blogpost_content", blogpost.getContent());
 			pageContext.setAttribute("blog_title",blogpost.getTitle());
