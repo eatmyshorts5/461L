@@ -55,7 +55,7 @@ public class EmailServlet extends HttpServlet{
 			Collections.reverse(posts);
 			_logger.info("my id is " + SystemProperty.applicationId.get());
 			
-			Date oneDayB4 = new Date(System.currentTimeMillis() - 2*60*1000);//cal.getTime();
+			Date oneDayB4 = new Date(System.currentTimeMillis() - 24*3600*1000);//cal.getTime();
 			for(Subscriber s:subscribers)
 			{	
 				String msgBody = "";
@@ -65,10 +65,7 @@ public class EmailServlet extends HttpServlet{
 					
 					if(post.getDate().after(oneDayB4))
 					{
-						<header style="font-size:30px"><a href="/blogpage.jsp">${fn: escapeXml(blog_title)}</a>
-						<h6 style="font-size:10px">by ${fn:escapeXml(blogpost_user.nickname)}. Posted on ${fn:escapeXml(blog_date)}</h6>
-						</header>
-						String blogpost = post.getTitle() + "\nby " + post.getUser().getNickname() + ". Posted on " + post.getDate() + "\n" + post.getContent() + "\n\n";
+						String blogpost = "<b>" + post.getTitle() + "</b><br>by " + post.getUser().getNickname() + ". Posted on " + post.getDate() + "<br>" + post.getContent() + "<br><br>";
 						msgBody += blogpost;
 					}
 					else
@@ -81,14 +78,14 @@ public class EmailServlet extends HttpServlet{
 				_logger.info(s.getLastDate().toString());
 				if(msgBody.length() != 0)
 				{
-					msgBody = "Posts in the last 2 minutes:\n" + msgBody;
+					msgBody = "Posts in the last 24 hours:<br><br>" + msgBody;
 					_logger.info("Sending e-mail to " );
 					Message msg = new MimeMessage(session);//SystemProperty.applicationId.get()
 			    	msg.setFrom(new InternetAddress("anything@" + SystemProperty.applicationId.get() + ".appspotmail.com", "Blog Kappa"));
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(s.getEmail(), s.getUser().getNickname()));
 					msg.setSubject("Blog update");
-					
-					msg.setText(msgBody);
+					msg.setContent(msgBody, "text/html");
+					//msg.setText(msgBody);
 					Transport.send(msg);
 				}
 				
