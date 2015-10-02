@@ -24,6 +24,8 @@ div.transbox1 {
     border: 2px solid black;
     overflow: hidden;
     max-width: 150ch;
+    opacity: 0.9;
+	filter: alpha(opacity=90); /* For IE8 and earlier */
 }
 
 div.opac {
@@ -43,4 +45,19 @@ img.resize{
     position: absolute;
   	top: 35px;
   	left: 35px;
+}
+
+p.headerr{
+    position: absolute;
+    font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #333333;
+    font-size: 40px;
+  	top: 5%;
+  	left: 200px;
+}
+
+p.nitpick{
+	padding-right: 20px;
+	
 }
