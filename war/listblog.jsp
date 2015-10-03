@@ -111,7 +111,7 @@
 
                 %>
 
-				<header style="font-size:20px"><a href="/blogpage.jsp">${fn: escapeXml(blog_title)}</a>
+				<header style="font-size:20px"><a href="/blogpage.jsp?index<%= i %>">${fn: escapeXml(blog_title)}</a>
 				<h6 style="font-size:10px">by Anonymous. Posted on ${fn:escapeXml(blog_date)}</h6>
 				</header>
 
